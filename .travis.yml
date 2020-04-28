@@ -2,19 +2,19 @@ sudo: required
 services: 
   - docker
 
-  before_install:
-    - docker build -t ranko/react-test -f ./client/Dockerfile.dev ./client
+before_install:
+  - docker build -t ranko/react-test -f ./client/Dockerfile.dev ./client
 
-  script:
-    - docker run ranko/react-test npm test -- --coverage
+script:
+  - docker run ranko/react-test npm test -- --coverage
 
-  after_success:
-    - docker build -t ranko/prod-client ./client
-    - docker build -t ranko/prod-nginx ./nginx
-    - docker build -t ranko/prod-server ./server
-    - docker build -t ranko/prod-worker ./worker
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    - docker push ranko/prod-client
-    - docker push ranko/prod-nginx
-    - docker push ranko/prod-server
-    - docker push ranko/prod-worker
+after_success:
+  - docker build -t ranko/prod-client ./client
+  - docker build -t ranko/prod-nginx ./nginx
+  - docker build -t ranko/prod-server ./server
+  - docker build -t ranko/prod-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push ranko/prod-client
+  - docker push ranko/prod-nginx
+  - docker push ranko/prod-server
+  - docker push ranko/prod-worker
