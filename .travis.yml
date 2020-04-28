@@ -3,19 +3,19 @@ services:
   - docker
 
 before_install:
-  - docker build -t ranko/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t kremenovic96/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true ranko/react-test npm test
+  - docker run -e CI=true kremenovic96/react-test npm test
 
 after_success:
-  - docker build -t ranko/prod-client ./client
-  - docker build -t ranko/prod-nginx ./nginx
-  - docker build -t ranko/prod-server ./server
-  - docker build -t ranko/prod-worker ./worker
+  - docker build -t kremenovic96/prod-client ./client
+  - docker build -t kremenovic96/prod-nginx ./nginx
+  - docker build -t kremenovic96/prod-server ./server
+  - docker build -t kremenovic96/prod-worker ./worker
  # - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker login -u "$DOCKER_ID" -p "$DOCKER_PASSWORD" docker.io
-  - docker push ranko/prod-client
-  - docker push ranko/prod-nginx
-  - docker push ranko/prod-server
-  - docker push ranko/prod-worker
+  - docker push kremenovic96/prod-client
+  - docker push kremenovic96/prod-nginx
+  - docker push kremenovic96/prod-server
+  - docker push kremenovic96/prod-worker
